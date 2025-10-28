@@ -1,10 +1,14 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv";
+
+
 import contactRoutes from "./Routes/contactRoutes.js";
 
-dotenv.config();
+
 const app = express();
 
 app.use(cors());
@@ -15,11 +19,12 @@ app.use("/api/contact", contactRoutes);
 
 app.get("/", (req, resp) => resp.send("Backend is running! 🚀"));
 
-
 const connectDB = async() => {
     await mongoose.connect(process.env.MONGO_URI);
 };
 
+// Check if env loaded
+console.log("Resend Key:", process.env.RESEND_API_KEY);
 
 connectDB()
   .then(() => {
